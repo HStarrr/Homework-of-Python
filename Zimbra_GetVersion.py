@@ -68,6 +68,8 @@ def getversionimapoverssl(ip):
         hostname = socket.gethostbyaddr(ip)
         print("[*] Try to connect: " + hostname[0] + ":993")   
         context = ssl.create_default_context()
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
         s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         s = context.wrap_socket(s, server_hostname=hostname[0])
         s.settimeout(5)
